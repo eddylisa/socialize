@@ -9,7 +9,7 @@ public class SocializeApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(SocializeApplication.class, args);
-		System.out.println("well done");
+		System.out.println("well done and good ");
 	}
 
 }
