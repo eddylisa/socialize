@@ -1,12 +1,10 @@
 package com.socialSearch.socialize.Controller;
 
-import com.socialSearch.socialize.Model.User;
-import com.socialSearch.socialize.Services.UserService;
-import com.socialSearch.socialize.Services.UserServiceImpl;
+import com.socialSearch.socialize.entity.User;
+import com.socialSearch.socialize.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -14,21 +12,36 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-    @PostMapping("registration")
+    @PostMapping("register")
     public String userAccountCreation(@RequestBody User user) {
         userService.createUserAccount(user);
-        return " User is registered successfully ";
+        return user.getLastName()+" "+user.getFirstName()+" is registered successfully ";
     }
-@GetMapping("view")
-public List<User> viewUsers(){
+
+    @GetMapping("view")
+public List<User> viewNearByUsers(){
         return userService.viewUsers();
 }
-    @PutMapping ("delete_user/{id}")
-    public String deleteUser(@PathVariable Long id){
-       userService.deleteUser(id) ;
-       return "User is deleted successfully";
 
+    @GetMapping("view/{id}")
+    public User findOneUser(@PathVariable Long id){
+        return userService.findUserById(id);
     }
+    @DeleteMapping ("delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "User is deleted successfully";
+    }
+    @PutMapping("update/{id}")
+    public String updateUser(@PathVariable Long id,@RequestBody User user){
+        userService.updateUser(id, user);
+        return "User "+user.getFirstName()+"is updated successfully";
+    }
+    @GetMapping("view/name/{name}")
+            public User findUserByName(@PathVariable("name") String name){
+        return userService.findUserByName(name);
+            }
+
 //    @PutMapping("updateUser")
 //    public String updateUser(@RequestBody User user){
 //        userService.updateUser(user);
