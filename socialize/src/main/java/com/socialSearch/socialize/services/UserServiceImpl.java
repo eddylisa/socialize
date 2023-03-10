@@ -1,21 +1,37 @@
 package com.socialSearch.socialize.services;
 
+import com.socialSearch.socialize.Config.WebSecurityConfig;
 import com.socialSearch.socialize.entity.User;
+import com.socialSearch.socialize.model.UserModel;
 import com.socialSearch.socialize.repositoty.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
-    @Override
+    @Autowired
+ private PasswordEncoder passwordEncoder ;
+      @Override
     public User createUserAccount(User user) {
         return userRepository.save(user);
     }
+    @Override
+    public User registerUser(UserModel userModel) {
+    User user = new User();
+    user.setFirstName(userModel.getFirstName());
+    user.setLastName(userModel.getLastName());
+    user.setEmail(userModel.getEmail());
+    user.setRole(userModel.getRole());
+    user.setPassword(passwordEncoder.encode(userModel.getPassword()));
+    userRepository.save(user);
+        return user;
+    }
+
 
     @Override
     public List<User> viewUsers() {

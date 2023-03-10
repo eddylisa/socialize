@@ -38,14 +38,8 @@ public class User {
     private EnumGender gender;
     @Column(name = "popularity")
     private Double popularity;
-//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS",shape = JsonFormat.Shape.STRING)
-//    @JsonDeserialize(using = DateDeserializers.TimestampDeserializer.class)
-//    @Column(name = "confirmedAt")
 @Column(name = "confirmedAt", columnDefinition = "DATE")
     private LocalDateTime confirmationTime;
-//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS",shape = JsonFormat.Shape.STRING)
-//    @JsonDeserialize(using = DateDeserializers.TimestampDeserializer.class)
-//    @Column(name = "dob")
 @Column(name = "dob", columnDefinition = "DATE")
     private LocalDateTime dateOfBirth;
     @Column(name = "religion")

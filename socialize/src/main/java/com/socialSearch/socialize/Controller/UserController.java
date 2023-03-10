@@ -1,6 +1,7 @@
 package com.socialSearch.socialize.Controller;
 
 import com.socialSearch.socialize.entity.User;
+import com.socialSearch.socialize.model.UserModel;
 import com.socialSearch.socialize.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ public class UserController {
     public String userAccountCreation(@RequestBody User user) {
         userService.createUserAccount(user);
         return user.getLastName()+" "+user.getFirstName()+" is registered successfully ";
+    }
+    @PostMapping("register-user")
+    public String registerUser(@RequestBody UserModel userModel) {
+        userService.registerUser(userModel);
+        return userModel.getLastName()+" "+userModel.getFirstName()+" is registered successfully ";
     }
 
     @GetMapping("view")
